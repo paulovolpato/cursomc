@@ -12,5 +12,7 @@ public class CategoriaResource {
     public String listart() {
 
         return "REST está funcionando";
+
+        //hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
     }
 }
