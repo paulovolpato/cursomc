@@ -1,13 +1,8 @@
 package br.com.paulo.aulajpa;
 
-import br.com.paulo.aulajpa.domain.Categoria;
-import br.com.paulo.aulajpa.domain.Cidade;
-import br.com.paulo.aulajpa.domain.Estado;
-import br.com.paulo.aulajpa.domain.Produto;
-import br.com.paulo.aulajpa.repositories.CategoriaRepository;
-import br.com.paulo.aulajpa.repositories.CidadeRepository;
-import br.com.paulo.aulajpa.repositories.EstadoRepository;
-import br.com.paulo.aulajpa.repositories.ProdutoRepository;
+import br.com.paulo.aulajpa.domain.*;
+import br.com.paulo.aulajpa.domain.enums.TipoCliente;
+import br.com.paulo.aulajpa.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +24,12 @@ public class AulaJpaApplication implements CommandLineRunner {
 
     @Autowired
     private CidadeRepository cidadeRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     public static void main(String[] args) {
 
@@ -66,6 +67,18 @@ public class AulaJpaApplication implements CommandLineRunner {
 
         estadoRepository.saveAll(Arrays.asList(est1, est2));
         cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-        
+
+        Cliente cli1 = new Cliente(null,"Maria Silva","maria@gmail.com","36378912377", TipoCliente.PESSOAFISICA);
+
+        cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+
+        Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38330834", cli1, c1);
+        Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1,c2);
+
+        cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+
+        clienteRepository.saveAll(Arrays.asList(cli1));
+        enderecoRepository.saveAll(Arrays.asList(e1,e2));
+
     }
 }
